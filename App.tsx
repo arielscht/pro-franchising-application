@@ -5,6 +5,8 @@ import AppLoading from "expo-app-loading";
 
 import Routes from "./src/Routes";
 import { UserContextProvider } from "./src/context/UserContext";
+import { NotificatorContextProvider } from "./src/context/NotificatorContext";
+import Notificator from "./src/components/Notificator";
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -29,7 +31,9 @@ export default function App() {
     <>
       <StatusBar style="dark" />
       <UserContextProvider>
-        <Routes />
+        <NotificatorContextProvider>
+          <Routes />
+        </NotificatorContextProvider>
       </UserContextProvider>
     </>
   );

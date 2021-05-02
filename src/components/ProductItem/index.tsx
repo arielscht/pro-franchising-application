@@ -1,28 +1,22 @@
 import React, { useRef, useState } from "react";
 import { View, Image, Text, TouchableOpacity, Animated } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
 
 import IngredientItem from "./IngredientItem";
+import { Product } from "../../types/global";
 
 interface ProductItemProps {
-  // product: {
-  //   id: number;
-  //   name: string;
-  //   image: string;
-  //   price: number;
-  //   ingredients: {
-  //     id: number;
-  //     name: string;
-  //     cost: number;
-  //   }[];
-  // };
+  product: Product;
 }
 
-const ProductItem: React.FC<ProductItemProps> = () => {
+const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   const [ingredientsOpened, setIngredientsOpened] = useState(false);
   const ingredientsContainerAnim = useRef(new Animated.Value(0)).current;
+
+  const navigation = useNavigation();
 
   const toggleIngredients = () => {
     if (ingredientsOpened) {
@@ -35,7 +29,7 @@ const ProductItem: React.FC<ProductItemProps> = () => {
       });
     } else {
       Animated.timing(ingredientsContainerAnim, {
-        toValue: 3 * 45,
+        toValue: product.ingredients.length * 45,
         duration: 500,
         useNativeDriver: false,
       }).start(() => {
@@ -45,7 +39,7 @@ const ProductItem: React.FC<ProductItemProps> = () => {
   };
 
   const rotateIngrediensButtonArrow = ingredientsContainerAnim.interpolate({
-    inputRange: [0, 3 * 45],
+    inputRange: [0, product.ingredients.length * 45],
     outputRange: ["0deg", "180deg"],
   });
 
@@ -55,8 +49,7 @@ const ProductItem: React.FC<ProductItemProps> = () => {
         <View style={styles.productImageFrame}>
           <Image
             source={{
-              uri:
-                "https://mais1cafe.com.br/wp-content/uploads/2020/08/Sensacao.png",
+              uri: product.image,
             }}
             style={styles.image}
             resizeMode="contain"
@@ -64,13 +57,21 @@ const ProductItem: React.FC<ProductItemProps> = () => {
         </View>
         <View style={styles.itemInfoContainer}>
           <View style={styles.editButtonWrapper}>
-            <TouchableOpacity style={styles.editButton}>
+            <TouchableOpacity
+              style={styles.editButton}
+              onPress={() =>
+                navigation.navigate("EditProduct", {
+                  mode: "edit",
+                  product: { ...product },
+                })
+              }
+            >
               <Feather name="edit-2" size={24} />
             </TouchableOpacity>
           </View>
           <View style={styles.itemNameWrapper}>
-            <Text style={styles.itemTitle}>Drink Gelado</Text>
-            <Text style={styles.price}>R$ 5,00</Text>
+            <Text style={styles.itemTitle}>{product.name}</Text>
+            <Text style={styles.price}>R$ {product.price.toFixed(2)}</Text>
           </View>
           <TouchableOpacity
             style={styles.ingredientsButton}
@@ -96,9 +97,13 @@ const ProductItem: React.FC<ProductItemProps> = () => {
         //   console.log("HEIGHT: ", height);
         // }}
       >
-        <IngredientItem />
-        <IngredientItem />
-        <IngredientItem />
+        <Animated.View
+          style={{ overflow: "hidden", height: ingredientsContainerAnim }}
+        >
+          {product.ingredients.map((ingredient) => (
+            <IngredientItem key={ingredient.id} ingredient={ingredient} />
+          ))}
+        </Animated.View>
       </Animated.View>
       {/*})}*/}
     </>

@@ -2,8 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { TouchableOpacity, Animated } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
+import { useRoute, RouteProp } from "@react-navigation/native";
 
+import { Product } from "../../../types/global";
 import Input from "../../../components/Input";
 
 import styles from "./styles";
@@ -26,6 +28,15 @@ const IngredientItemForm: React.FC<IngredientItemFormProps> = ({
   const discardTimer = useRef<NodeJS.Timeout>();
   const viewHeightAnim = useRef(new Animated.Value(100)).current;
 
+  const route: RouteProp<
+    { params: { mode: "add" | "edit"; product?: Product } },
+    "params"
+  > = useRoute();
+
+  const isEditMode = route.params.mode === "edit";
+  const { product } = route.params;
+  // const
+
   const {
     register,
     setValue,
@@ -33,13 +44,10 @@ const IngredientItemForm: React.FC<IngredientItemFormProps> = ({
     formState,
     getValues,
     unregister,
+    control,
   } = useFormContext();
 
   useEffect(() => {
-    register(`${fieldName}.name`, { required: true });
-    register(`${fieldName}.quantity`, { required: true });
-    register(`${fieldName}.cost`, { required: true });
-
     return () => {
       unregister(`${fieldName}.name`);
       unregister(`${fieldName}.quantity`);
@@ -82,31 +90,94 @@ const IngredientItemForm: React.FC<IngredientItemFormProps> = ({
         duration={500}
       >
         {/* <View style={styles.container}> */}
-        <Input
-          placeholder="Qtd"
-          containerStyle={{ flex: 2, marginRight: 10 }}
-          keyboardType="numeric"
-          onChangeText={(text) => setValue(`${fieldName}.quantity`, +text)}
-          onBlur={() => triggerValidation(`${fieldName}.quantity`)}
-          error={checkFieldError("quantity")}
-          showErrorMessage={false}
+        <Controller
+          control={control}
+          name={`${fieldName}.id`}
+          defaultValue={
+            isEditMode
+              ? product!.ingredients[index]
+                ? product!.ingredients[index].id.toString()
+                : ""
+              : ""
+          }
+          render={() => <></>}
         />
-        <Input
-          placeholder="R$"
-          containerStyle={{ flex: 2, marginRight: 10 }}
-          keyboardType="decimal-pad"
-          onChangeText={(text) => setValue(`${fieldName}.cost`, +text)}
-          onBlur={() => triggerValidation(`${fieldName}.cost`)}
-          error={checkFieldError("cost")}
-          showErrorMessage={false}
+        <Controller
+          control={control}
+          name={`${fieldName}.quantity`}
+          defaultValue={
+            isEditMode
+              ? product!.ingredients[index]
+                ? product!.ingredients[index].quantity.toString()
+                : ""
+              : ""
+          }
+          rules={{
+            required: true,
+            validate: (value) => value > 0,
+          }}
+          render={({ field: { onChange, value } }) => (
+            <Input
+              placeholder="Qtd"
+              containerStyle={{ flex: 2, marginRight: 10 }}
+              keyboardType="numeric"
+              value={value}
+              onChangeText={(text) => onChange(+text)}
+              onBlur={() => triggerValidation(`${fieldName}.quantity`)}
+              error={checkFieldError("quantity")}
+              showErrorMessage={false}
+            />
+          )}
         />
-        <Input
-          placeholder="Nome"
-          containerStyle={{ flex: 5 }}
-          onChangeText={(text) => setValue(`${fieldName}.name`, text)}
-          onBlur={() => triggerValidation(`${fieldName}.name`)}
-          error={checkFieldError("name")}
-          showErrorMessage={false}
+        <Controller
+          control={control}
+          name={`${fieldName}.cost`}
+          defaultValue={
+            isEditMode
+              ? product!.ingredients[index]
+                ? product!.ingredients[index].cost.toString()
+                : ""
+              : ""
+          }
+          rules={{
+            required: true,
+            validate: (value) => value > 0,
+          }}
+          render={({ field: { onChange, value } }) => (
+            <Input
+              placeholder="R$"
+              containerStyle={{ flex: 2, marginRight: 10 }}
+              keyboardType="decimal-pad"
+              value={value}
+              onChangeText={(text) => onChange(+text)}
+              onBlur={() => triggerValidation(`${fieldName}.cost`)}
+              error={checkFieldError("cost")}
+              showErrorMessage={false}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name={`${fieldName}.name`}
+          defaultValue={
+            isEditMode
+              ? product!.ingredients[index]
+                ? product!.ingredients[index].name
+                : ""
+              : ""
+          }
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <Input
+              placeholder="Nome"
+              containerStyle={{ flex: 5 }}
+              value={value}
+              onChangeText={(text) => onChange(text)}
+              onBlur={() => triggerValidation(`${fieldName}.name`)}
+              error={checkFieldError("name")}
+              showErrorMessage={false}
+            />
+          )}
         />
         <TouchableOpacity
           style={styles.discardButton}

@@ -6,11 +6,18 @@ const styles = StyleSheet.create({
   container: {
     height: windowHeight * 0.28,
     elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowRadius: 5,
+    shadowOpacity: 0.2,
     // borderColor: "red",
     // borderWidth: 2,
     marginTop: 20,
     borderRadius: 14,
-    overflow: "hidden",
+    // overflow: "hidden",
     backgroundColor: "#FFF",
     marginHorizontal: 5,
     padding: 10,
@@ -79,8 +86,15 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 14,
     // paddingVertical: 10,
     paddingHorizontal: 20,
-    overflow: "hidden",
+    // overflow: "hidden",
     elevation: 2,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowRadius: 3,
+    shadowOpacity: 0.2,
   },
 });
 

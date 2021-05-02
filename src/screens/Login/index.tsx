@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { View, Text } from "react-native";
+import { View, Text, KeyboardAvoidingView } from "react-native";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
@@ -10,6 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./styles";
 
 import { UserContext } from "../../context/UserContext";
+import { NotificatorContext } from "../../context/NotificatorContext";
 
 interface FormData {
   username: string;
@@ -23,6 +24,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const { setContext: setUserContext } = useContext(UserContext);
+  const { setContext: setNotificatorContext } = useContext(NotificatorContext);
 
   const {
     register,
@@ -50,6 +52,7 @@ const Login = () => {
 
   const loginHandler = async (data: FormData) => {
     setLoading(true);
+    setHasError(false);
     try {
       const response = await api.post("/auth/login", data);
 
@@ -64,13 +67,16 @@ const Login = () => {
 
       navigation.navigate("Home");
     } catch (err) {
-      setHasError(true);
       if (Math.trunc(err.response.data.status / 100) == 4) {
+        setHasError(true);
         setErrorMessage("Usuário ou senha incorretos.");
       } else {
-        setErrorMessage(
-          "Erro inesperado, por favor tente novamente mais tarde."
-        );
+        setNotificatorContext({
+          show: true,
+          message:
+            "Ocorreu um erro inesperado. Por favor tente novamente mais tarde.",
+          type: "danger",
+        });
       }
     }
     setLoading(false);
@@ -80,9 +86,9 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>ProductsManager</Text>
+      <Text style={styles.title}>CoffeeShop</Text>
       <Text style={styles.welcomeText}>Seja bem-vindo</Text>
-      <View style={styles.formContainer}>
+      <KeyboardAvoidingView style={styles.formContainer} behavior="padding">
         <Input
           placeholder="Nome do usuário"
           onChangeText={(text) => setValue("username", text)}
@@ -107,7 +113,7 @@ const Login = () => {
           onPress={handleSubmit(onSubmit)}
           loading={loading}
         />
-      </View>
+      </KeyboardAvoidingView>
     </View>
   );
 };

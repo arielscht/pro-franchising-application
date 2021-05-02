@@ -10,6 +10,13 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: "#FBA52F",
     elevation: 4,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowRadius: 3,
+    shadowOpacity: 0.2,
   },
   buttonText: {
     fontFamily: "poppins",
