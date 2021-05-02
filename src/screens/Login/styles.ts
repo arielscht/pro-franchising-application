@@ -28,6 +28,12 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
     // flex: 1,
   },
+  formError: {
+    fontFamily: "poppins-bold",
+    color: "red",
+    textAlign: "center",
+    marginTop: 20,
+  },
 });
 
 export default styles;

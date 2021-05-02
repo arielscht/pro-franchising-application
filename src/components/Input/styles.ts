@@ -9,6 +9,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontSize: 16,
   },
+  errorMessage: {
+    fontFamily: "poppins",
+    color: "red",
+    marginTop: 4,
+  },
 });
 
 export default styles;

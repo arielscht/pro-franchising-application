@@ -4,6 +4,7 @@ import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 
 import Routes from "./src/Routes";
+import { UserContextProvider } from "./src/context/UserContext";
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -24,5 +25,12 @@ export default function App() {
       />
     );
 
-  return <Routes />;
+  return (
+    <>
+      <StatusBar style="dark" />
+      <UserContextProvider>
+        <Routes />
+      </UserContextProvider>
+    </>
+  );
 }

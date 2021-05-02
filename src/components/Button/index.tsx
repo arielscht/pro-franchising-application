@@ -3,8 +3,7 @@ import {
   Text,
   TouchableOpacity,
   TouchableOpacityProps,
-  StyleProp,
-  ViewStyle,
+  ActivityIndicator,
 } from "react-native";
 
 import styles from "./styles";
@@ -13,6 +12,7 @@ interface ButtonProps extends TouchableOpacityProps {
   buttonStyle?: object;
   textStyle?: object;
   buttonText: string;
+  loading?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -20,6 +20,7 @@ const Button: React.FC<ButtonProps> = ({
   buttonStyle,
   buttonText,
   textStyle,
+  loading,
   ...touchableProps
 }) => {
   return (
@@ -27,7 +28,11 @@ const Button: React.FC<ButtonProps> = ({
       style={{ ...styles.button, ...buttonStyle }}
       {...touchableProps}
     >
-      <Text style={{ ...styles.buttonText, ...textStyle }}>{buttonText}</Text>
+      {loading ? (
+        <ActivityIndicator size="large" color="#FFF" />
+      ) : (
+        <Text style={{ ...styles.buttonText, ...textStyle }}>{buttonText}</Text>
+      )}
     </TouchableOpacity>
   );
 };
