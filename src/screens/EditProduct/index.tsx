@@ -15,6 +15,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import IngredientItemForm from "./IngredientItemForm";
 import Modal, { closeModal } from "../../components/Modal";
+import ConfirmActionModal from "../../components/ConfirmActionModal";
 
 import api from "../../services/api";
 import { UserContext } from "../../context/UserContext";
@@ -152,39 +153,15 @@ const EditProduct = () => {
   return (
     <View style={styles.container}>
       {deleteModalOpened && route.params.mode === "edit" && (
-        <Modal
-          onClose={() => {
-            setDeleteModalOpened(false);
+        <ConfirmActionModal
+          confirmButtonText="Excluir"
+          confirmQuestion="Tem certeza que deseja excluir este produto?"
+          onClose={() => setDeleteModalOpened(false)}
+          onConfirm={() => {
+            deleteHandler(route.params.product!);
           }}
-        >
-          <Text style={styles.modalText}>
-            Tem certeza que deseja excluir este produto?
-          </Text>
-          <View style={styles.modalButtonsWrapper}>
-            <Button
-              buttonText="Excluir"
-              buttonStyle={{
-                ...styles.modalButton,
-                marginRight: 10,
-                backgroundColor: "#ef5350",
-              }}
-              onPress={() => {
-                deleteHandler(route.params.product!);
-              }}
-              loading={loadingDelete}
-            />
-            <Button
-              buttonText="Cancelar"
-              buttonStyle={{
-                ...styles.modalButton,
-                backgroundColor: "#636363",
-              }}
-              onPress={() => {
-                closeModal();
-              }}
-            />
-          </View>
-        </Modal>
+          loading={loadingDelete}
+        />
       )}
       <Header>
         <TouchableOpacity

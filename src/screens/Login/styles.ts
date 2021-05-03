@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontFamily: "poppins-bold",
-    // fontSize: 16,
     fontSize: windowHeight * 0.022,
     color: "#636363",
     textAlign: "center",
@@ -27,9 +26,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     paddingHorizontal: 20,
-    // borderColor: "red",
-    // borderWidth: 2,
-    // flex: 1,
     maxWidth: 420,
     width: "100%",
     alignSelf: "center",

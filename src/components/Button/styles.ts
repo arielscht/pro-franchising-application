@@ -4,8 +4,6 @@ const { height: windowHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   button: {
-    // borderColor: "red",
-    // borderWidth: 2,
     height: windowHeight * 0.065,
     justifyContent: "center",
     alignContent: "center",
@@ -22,7 +20,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontFamily: "poppins",
-    // fontSize: 18,
     fontSize: windowHeight * 0.024,
     textAlign: "center",
     color: "white",

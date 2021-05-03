@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
   },
   formHeaderText: {
     fontFamily: "poppins",
-    // fontSize: 16,
     fontSize: windowHeight * 0.021,
   },
   fieldDivider: {

@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
   },
   ingredientsButtonText: {
     fontFamily: "poppins",
-    // fontSize: 16,
     fontSize: windowHeight * 0.022,
     color: "#707070",
   },

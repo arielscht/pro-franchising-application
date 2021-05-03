@@ -28,8 +28,6 @@ const styles = StyleSheet.create({
   },
   backButton: {
     width: 80,
-    // borderColor: "green",
-    // borderWidth: 2,
     marginLeft: -20,
   },
   scrollView: {
