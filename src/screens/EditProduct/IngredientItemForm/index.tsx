@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { TouchableOpacity, Animated } from "react-native";
+import { TouchableOpacity, Animated, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 import { useFormContext, Controller } from "react-hook-form";
@@ -9,6 +9,8 @@ import { Product } from "../../../types/global";
 import Input from "../../../components/Input";
 
 import styles from "./styles";
+
+const { height: windowHeight } = Dimensions.get("window");
 
 interface IngredientItemFormProps {
   discardDisabled?: boolean;
@@ -52,6 +54,7 @@ const IngredientItemForm: React.FC<IngredientItemFormProps> = ({
       unregister(`${fieldName}.name`);
       unregister(`${fieldName}.quantity`);
       unregister(`${fieldName}.cost`);
+      unregister(`${fieldName}.id`);
     };
   }, []);
 
@@ -190,7 +193,7 @@ const IngredientItemForm: React.FC<IngredientItemFormProps> = ({
                 ? "alert-circle-outline"
                 : "ios-trash-outline"
             }
-            size={24}
+            size={windowHeight * 0.031}
             color={
               discardDisabled ? "#ccc" : discardTouchCount > 0 ? "red" : "#000"
             }

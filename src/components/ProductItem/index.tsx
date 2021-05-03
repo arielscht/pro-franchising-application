@@ -1,5 +1,12 @@
 import React, { useRef, useState } from "react";
-import { View, Image, Text, TouchableOpacity, Animated } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  Animated,
+  Dimensions,
+} from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -7,6 +14,8 @@ import styles from "./styles";
 
 import IngredientItem from "./IngredientItem";
 import { Product } from "../../types/global";
+
+const { height: windowHeight, width: windowWidth } = Dimensions.get("window");
 
 interface ProductItemProps {
   product: Product;
@@ -29,7 +38,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
       });
     } else {
       Animated.timing(ingredientsContainerAnim, {
-        toValue: product.ingredients.length * 45,
+        toValue: product.ingredients.length * windowHeight * 0.062 + 10,
         duration: 500,
         useNativeDriver: false,
       }).start(() => {
@@ -39,7 +48,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   };
 
   const rotateIngrediensButtonArrow = ingredientsContainerAnim.interpolate({
-    inputRange: [0, product.ingredients.length * 45],
+    inputRange: [0, product.ingredients.length * windowHeight * 0.062 + 10],
     outputRange: ["0deg", "180deg"],
   });
 
@@ -66,11 +75,17 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
                 })
               }
             >
-              <Feather name="edit-2" size={24} />
+              <Feather name="edit-2" size={windowHeight * 0.03} />
             </TouchableOpacity>
           </View>
           <View style={styles.itemNameWrapper}>
-            <Text style={styles.itemTitle}>{product.name}</Text>
+            <Text
+              style={styles.itemTitle}
+              adjustsFontSizeToFit
+              numberOfLines={1}
+            >
+              {product.name}
+            </Text>
             <Text style={styles.price}>R$ {product.price.toFixed(2)}</Text>
           </View>
           <TouchableOpacity
@@ -80,32 +95,31 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
             <Animated.View
               style={{ transform: [{ rotateZ: rotateIngrediensButtonArrow }] }}
             >
-              <Ionicons name="chevron-down" size={24} color="#707070" />
+              <Ionicons
+                name="chevron-down"
+                size={windowHeight * 0.03}
+                color="#707070"
+              />
             </Animated.View>
             <Text style={styles.ingredientsButtonText}>Ingredientes</Text>
           </TouchableOpacity>
         </View>
       </View>
-      {/* {ingredientsOpened && ( */}
       <Animated.View
         style={{
           ...styles.ingredientsContainer,
           height: ingredientsContainerAnim,
         }}
-        // onLayout={(event) => {
-        //   var { height } = event.nativeEvent.layout;
-        //   console.log("HEIGHT: ", height);
-        // }}
       >
         <Animated.View
           style={{ overflow: "hidden", height: ingredientsContainerAnim }}
         >
+          <View style={{ height: 10 }}></View>
           {product.ingredients.map((ingredient) => (
             <IngredientItem key={ingredient.id} ingredient={ingredient} />
           ))}
         </Animated.View>
       </Animated.View>
-      {/*})}*/}
     </>
   );
 };

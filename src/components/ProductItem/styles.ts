@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, PixelRatio } from "react-native";
 
 const { height: windowHeight, width: windowWidth } = Dimensions.get("window");
 
@@ -13,26 +13,23 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 5,
     shadowOpacity: 0.2,
-    // borderColor: "red",
-    // borderWidth: 2,
     marginTop: 20,
     borderRadius: 14,
-    // overflow: "hidden",
     backgroundColor: "#FFF",
     marginHorizontal: 5,
     padding: 10,
     flexDirection: "row",
+    maxWidth: 800,
+    width: "98%",
+    alignSelf: "center",
   },
   productImageFrame: {
     width: "50%",
-    // borderColor: "green",
-    // borderWidth: 2,
   },
   image: {
     width: "100%",
     height: "100%",
-    // borderColor: "blue",
-    // borderWidth: 1,
+    borderRadius: 5,
   },
   itemInfoContainer: {
     flex: 1,
@@ -40,32 +37,28 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   editButtonWrapper: {
-    // borderColor: "red",
-    // borderWidth: 2,
     width: "100%",
     alignItems: "flex-end",
   },
   editButton: {
-    // borderColor: "red",
-    // borderWidth: 2,
     justifyContent: "center",
     alignItems: "center",
     padding: 2,
   },
   itemNameWrapper: {
-    // borderColor: "green",
-    // borderWidth: 2,
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
   },
   itemTitle: {
     fontFamily: "poppins-bold",
-    fontSize: 24,
+    fontSize: windowHeight * 0.03,
+    textAlign: "center",
+    paddingHorizontal: 5,
   },
   price: {
-    fontFamily: "poppins-bold",
-    fontSize: 32,
+    fontFamily: "poppins",
+    fontSize: windowHeight * 0.035,
   },
   ingredientsButton: {
     flexDirection: "row",
@@ -74,19 +67,16 @@ const styles = StyleSheet.create({
   },
   ingredientsButtonText: {
     fontFamily: "poppins",
-    fontSize: 16,
+    // fontSize: 16,
+    fontSize: windowHeight * 0.022,
     color: "#707070",
   },
   ingredientsContainer: {
-    // height: 200,
-
     backgroundColor: "#dbdbdb",
     marginHorizontal: 20,
     borderBottomLeftRadius: 14,
     borderBottomRightRadius: 14,
-    // paddingVertical: 10,
     paddingHorizontal: 20,
-    // overflow: "hidden",
     elevation: 2,
     shadowColor: "#000",
     shadowOffset: {
@@ -95,6 +85,9 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 3,
     shadowOpacity: 0.2,
+    maxWidth: 780,
+    width: "95%",
+    alignSelf: "center",
   },
 });
 

@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const { height: windowHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
@@ -6,8 +8,6 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: "absolute",
-    // borderWidth: 1,
-    // borderColor: "red",
     height: "100%",
     width: "20%",
     justifyContent: "flex-end",
@@ -15,10 +15,20 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     zIndex: 10,
   },
+  deleteButton: {
+    position: "absolute",
+    height: "100%",
+    justifyContent: "flex-end",
+    paddingBottom: 10,
+    paddingRight: 10,
+    paddingLeft: 20,
+    zIndex: 10,
+    right: 0,
+  },
   backButtonIcon: {},
   headerTitle: {
     fontFamily: "poppins-bold",
-    fontSize: 24,
+    fontSize: windowHeight * 0.03,
     color: "#FBA52F",
     marginBottom: -8,
     flex: 1,
@@ -26,23 +36,25 @@ const styles = StyleSheet.create({
     zIndex: 5,
   },
   contentContainer: {
-    // margin: 10,
     backgroundColor: "#FFF",
-    // borderRadius: 14,
-    // elevation: 5,
     padding: 15,
     maxHeight: "100%",
     flex: 1,
   },
+  formWrapper: {
+    width: "100%",
+    alignSelf: "center",
+    maxWidth: 750,
+    height: "100%",
+  },
   formHeaderText: {
     fontFamily: "poppins",
-    fontSize: 16,
+    // fontSize: 16,
+    fontSize: windowHeight * 0.021,
   },
   fieldDivider: {
     marginTop: 20,
     flexDirection: "row",
-    // borderColor: "red",
-    // borderWidth: 1,
     marginBottom: 30,
   },
   inputContainerStyle: {
@@ -62,6 +74,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#27AE60",
     marginHorizontal: 30,
     marginVertical: 30,
+  },
+  modalText: {
+    fontFamily: "poppins-bold",
+    fontSize: 18,
+    textAlign: "center",
+  },
+  modalButtonsWrapper: {
+    flexDirection: "row",
+    marginTop: 30,
+  },
+  modalButton: {
+    flex: 1,
   },
 });
 

@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const { height: windowHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
@@ -10,15 +12,16 @@ const styles = StyleSheet.create({
   title: {
     color: "#FBA52F",
     fontFamily: "poppins",
-    fontSize: 35,
+    fontSize: windowHeight * 0.05,
     textAlign: "center",
   },
   welcomeText: {
     fontFamily: "poppins-bold",
-    fontSize: 16,
+    // fontSize: 16,
+    fontSize: windowHeight * 0.022,
     color: "#636363",
     textAlign: "center",
-    marginBottom: 20,
+    marginBottom: windowHeight * 0.025,
   },
   formContainer: {
     justifyContent: "center",
@@ -27,6 +30,9 @@ const styles = StyleSheet.create({
     // borderColor: "red",
     // borderWidth: 2,
     // flex: 1,
+    maxWidth: 420,
+    width: "100%",
+    alignSelf: "center",
   },
   formError: {
     fontFamily: "poppins-bold",

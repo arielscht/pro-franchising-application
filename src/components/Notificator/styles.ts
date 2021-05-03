@@ -5,8 +5,10 @@ const screenWidth = Dimensions.get("window").width;
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    width: screenWidth * 0.8,
-    left: (screenWidth * 0.2) / 2,
+    width: "80%",
+    maxWidth: 500,
+    alignSelf: "center",
+    // left: (screenWidth * 0.2) / 2,
     paddingTop: 10,
     borderRadius: 8,
     top: 40,

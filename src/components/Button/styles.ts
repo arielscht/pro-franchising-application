@@ -1,10 +1,12 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const { height: windowHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   button: {
     // borderColor: "red",
     // borderWidth: 2,
-    height: 50,
+    height: windowHeight * 0.065,
     justifyContent: "center",
     alignContent: "center",
     borderRadius: 4,
@@ -20,7 +22,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontFamily: "poppins",
-    fontSize: 18,
+    // fontSize: 18,
+    fontSize: windowHeight * 0.024,
     textAlign: "center",
     color: "white",
   },

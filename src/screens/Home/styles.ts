@@ -1,4 +1,6 @@
-import { StyleSheet, StatusBar } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const { height: windowHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
@@ -6,7 +8,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontFamily: "poppins-bold",
-    fontSize: 24,
+    fontSize: windowHeight * 0.03,
     color: "#FBA52F",
     marginBottom: -8,
   },
