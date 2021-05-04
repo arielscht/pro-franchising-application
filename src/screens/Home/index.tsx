@@ -10,7 +10,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import {
   useNavigation,
-  useFocusEffect,
+  useIsFocused,
   useRoute,
   RouteProp,
 } from "@react-navigation/native";
@@ -39,7 +39,7 @@ const Home = () => {
     { params: { reload?: boolean } },
     "params"
   > = useRoute();
-  // const screenIsFocused = useIsFocused();
+  const screenIsFocused = useIsFocused();
 
   const { setContext, token: userToken } = useContext(UserContext);
 
@@ -67,6 +67,15 @@ const Home = () => {
   useEffect(() => {
     if (!page) fetchProducts();
   }, [page]);
+
+  useEffect(() => {
+    if (!screenIsFocused) return;
+    else if (route.params === undefined) return;
+    else if (route.params.reload === undefined) return;
+    setProducts([]);
+    setTotalProducts(0);
+    setPage(0);
+  }, [screenIsFocused]);
 
   const logoutHandler = async () => {
     await AsyncStorage.removeItem("token");

@@ -21,7 +21,6 @@ const Modal: React.FC<ModalProps> = ({ children, onClose }) => {
   }, []);
 
   closeModal = () => {
-    console.log("CLOSE");
     Animated.spring(modalTransformAnim, {
       toValue: -800,
       useNativeDriver: true,

@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 
-const screenWidth = Dimensions.get("window").width;
+const { height: windowHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
@@ -25,9 +25,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#FFF",
     flex: 1,
+    fontSize: windowHeight * 0.02,
   },
   progressBar: {
-    height: 5,
+    height: windowHeight * 0.01,
     backgroundColor: "#FFF",
     marginTop: 10,
     opacity: 0.8,

@@ -37,14 +37,10 @@ const IngredientItemForm: React.FC<IngredientItemFormProps> = ({
 
   const isEditMode = route.params.mode === "edit";
   const { product } = route.params;
-  // const
 
   const {
-    register,
-    setValue,
     trigger: triggerValidation,
     formState,
-    getValues,
     unregister,
     control,
   } = useFormContext();
@@ -92,7 +88,6 @@ const IngredientItemForm: React.FC<IngredientItemFormProps> = ({
         animation={discardAnimation}
         duration={500}
       >
-        {/* <View style={styles.container}> */}
         <Controller
           control={control}
           name={`${fieldName}.id`}
@@ -117,7 +112,10 @@ const IngredientItemForm: React.FC<IngredientItemFormProps> = ({
           }
           rules={{
             required: true,
-            validate: (value) => value > 0,
+            validate: (value) => {
+              if (typeof +value === "number" && value > 0) return true;
+              return false;
+            },
           }}
           render={({ field: { onChange, value } }) => (
             <Input
@@ -125,7 +123,7 @@ const IngredientItemForm: React.FC<IngredientItemFormProps> = ({
               containerStyle={{ flex: 2, marginRight: 10 }}
               keyboardType="numeric"
               value={value}
-              onChangeText={(text) => onChange(+text)}
+              onChangeText={(text) => onChange(text)}
               onBlur={() => triggerValidation(`${fieldName}.quantity`)}
               error={checkFieldError("quantity")}
               showErrorMessage={false}
@@ -144,7 +142,10 @@ const IngredientItemForm: React.FC<IngredientItemFormProps> = ({
           }
           rules={{
             required: true,
-            validate: (value) => value > 0,
+            validate: (value) => {
+              if (typeof +value === "number" && value > 0) return true;
+              return false;
+            },
           }}
           render={({ field: { onChange, value } }) => (
             <Input
@@ -152,7 +153,7 @@ const IngredientItemForm: React.FC<IngredientItemFormProps> = ({
               containerStyle={{ flex: 2, marginRight: 10 }}
               keyboardType="decimal-pad"
               value={value}
-              onChangeText={(text) => onChange(+text)}
+              onChangeText={(text) => onChange(text)}
               onBlur={() => triggerValidation(`${fieldName}.cost`)}
               error={checkFieldError("cost")}
               showErrorMessage={false}
@@ -199,7 +200,6 @@ const IngredientItemForm: React.FC<IngredientItemFormProps> = ({
             }
           />
         </TouchableOpacity>
-        {/* </View> */}
       </Animatable.View>
     </Animated.View>
   );

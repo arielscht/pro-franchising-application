@@ -14,7 +14,7 @@ import Header from "../../components/Header";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import IngredientItemForm from "./IngredientItemForm";
-import Modal, { closeModal } from "../../components/Modal";
+import { closeModal } from "../../components/Modal";
 import ConfirmActionModal from "../../components/ConfirmActionModal";
 
 import api from "../../services/api";
@@ -112,7 +112,6 @@ const EditProduct = () => {
       });
       navigation.navigate("Home", { reload: true });
     } catch (err) {
-      console.log(err.response.data);
       setNotificatorContext({
         show: true,
         message:
@@ -139,7 +138,6 @@ const EditProduct = () => {
       closeModal();
       navigation.navigate("Home", { reload: true });
     } catch (err) {
-      console.log("ERROR: ", err.response.data);
       setNotificatorContext({
         show: true,
         message:
@@ -226,7 +224,13 @@ const EditProduct = () => {
               <Controller
                 control={control}
                 name="price"
-                rules={{ required: true, validate: (value) => value > 0 }}
+                rules={{
+                  required: true,
+                  validate: (value) => {
+                    if (typeof +value === "number" && value > 0) return true;
+                    return false;
+                  },
+                }}
                 defaultValue={
                   route.params.mode === "edit"
                     ? route.params.product!.price.toString()
@@ -239,7 +243,7 @@ const EditProduct = () => {
                     keyboardType="number-pad"
                     value={value}
                     onChangeText={(text) => {
-                      onChange(+text);
+                      onChange(text);
                     }}
                     onBlur={() => triggerValidation("price")}
                     error={"price" in formState.errors}

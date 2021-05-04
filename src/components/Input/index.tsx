@@ -44,8 +44,6 @@ const Input: React.FC<InputProps> = ({
       else errorMessage = "Formato inválido";
       break;
     case "validate":
-      console.log("VALIDATE ERROR");
-      console.log("ERROR OBJ: ", errorObj);
       errorMessage = "Campo obrigatório";
       break;
     default:
