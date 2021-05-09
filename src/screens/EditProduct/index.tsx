@@ -95,7 +95,7 @@ const EditProduct = () => {
     try {
       let response;
       setSubmitLoading(true);
-      response = await api.post("/product/save", submitData, {
+      response = await api.post("/productds/save", submitData, {
         headers: { authorization: userToken },
       });
 
@@ -115,7 +115,7 @@ const EditProduct = () => {
       setNotificatorContext({
         show: true,
         message:
-          "Ocorreu um erro inesperado. Por favor tente novamente mais tarde.",
+          "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde.",
         type: "danger",
       });
     }
@@ -141,7 +141,7 @@ const EditProduct = () => {
       setNotificatorContext({
         show: true,
         message:
-          "Ocorreu um erro inesperado. Por favor tente novamente mais tarde.",
+          "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde.",
         type: "danger",
       });
     }
