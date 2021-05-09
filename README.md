@@ -34,7 +34,7 @@ Alguns diferenciais adicionados:
 
 ### Listagem de produtos
 
-![Listagem de produtos](https://user-images.githubusercontent.com/48089807/117519061-86f3e800-af78-11eb-92d9-3f1813f26fc3.gif);
+![Listagem de produtos](https://user-images.githubusercontent.com/48089807/117577916-41433680-b0c2-11eb-836c-a50878fd50b9.gif);
 
 ### Adicionar produto
 
@@ -54,6 +54,6 @@ Em caso de erros inesperados retornados pelo servidor, uma notificação aparece
 
 ![Error handling](https://user-images.githubusercontent.com/48089807/117520319-0506bd80-af7e-11eb-809c-2b3cdc76f535.gif);
 
-## Validação de formulários
+### Validação de formulários
 
 Para a validação de formulários foi utilizada a biblioteca [react-hook-form](https://react-hook-form.com/), a validação é disparada no onBlur dos inputs e também no submit.
