@@ -95,7 +95,7 @@ const EditProduct = () => {
     try {
       let response;
       setSubmitLoading(true);
-      response = await api.post("/productds/save", submitData, {
+      response = await api.post("/product/save", submitData, {
         headers: { authorization: userToken },
       });
 
